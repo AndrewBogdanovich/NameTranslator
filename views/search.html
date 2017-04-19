@@ -1,0 +1,59 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <title>Wiki search</title>
+    <script src="http://en.wikipedia.org/w/api.php?action=opensearch&amp;search=k&amp;format=json&amp;callback=spellcheck" type="text/javascript"></script>
+    <script src="http://en.wikipedia.org/w/api.php?action=opensearch&amp;search=kke&amp;format=json&amp;callback=spellcheck" type="text/javascript"></script>
+    <script src="http://en.wikipedia.org/w/api.php?action=opensearch&amp;search=kke&amp;format=json&amp;callback=spellcheck" type="text/javascript"></script>
+    <script src="http://en.wikipedia.org/w/api.php?action=opensearch&amp;search=kk&amp;format=json&amp;callback=spellcheck" type="text/javascript"></script>
+    <script src="http://en.wikipedia.org/w/api.php?action=opensearch&amp;search=k&amp;format=json&amp;callback=spellcheck" type="text/javascript"></script>
+    <script src="http://en.wikipedia.org/w/api.php?action=opensearch&amp;search=a&amp;format=json&amp;callback=spellcheck" type="text/javascript"></script>
+    <script src="http://en.wikipedia.org/w/api.php?action=opensearch&amp;search=ap&amp;format=json&amp;callback=spellcheck" type="text/javascript"></script>
+    <script src="http://en.wikipedia.org/w/api.php?action=opensearch&amp;search=api&amp;format=json&amp;callback=spellcheck" type="text/javascript"></script>
+    <script src="http://en.wikipedia.org/w/api.php?action=opensearch&amp;search=api&amp;format=json&amp;callback=spellcheck" type="text/javascript"></script>
+</head>
+<body>
+
+<script type="text/javascript">
+var spellcheck = function (data) {
+    var found = false;
+    var url='';
+    var text = data [0];
+
+    if (text != document.getElementById ('spellcheckinput').value)
+        return;
+
+            found = true;
+            url =('http://ru.wikipedia.org/wiki/' + text)||('http://en.wikipedia.org/wiki/' + text);
+            document.getElementById ('spellcheckresult').innerHTML = '<b style="color:green">Correct</b> - <a target="_top" href="' + url + '">link</a>';
+
+
+
+    if (! found)
+        document.getElementById ('spellcheckresult').innerHTML = '<b style="color:red">Incorrect</b>';
+};
+
+var getjs = function (value) {
+    if (! value)
+        return;
+
+    url = ('http://ru.wikipedia.org/w/api.php?action=opensearch&search='+value+'&format=json&callback=spellcheck')||('http://en.wikipedia.org/w/api.php?action=opensearch&search='+value+'&format=json&callback=spellcheck');
+
+    document.getElementById ('spellcheckresult').innerHTML = 'Checking ...';
+    var elem = document.createElement ('script');
+    elem.setAttribute ('src', url);
+    elem.setAttribute ('type','text/javascript');
+    document.getElementsByTagName ('head') [0].appendChild (elem);
+};
+</script>
+
+<form action="#" method="get" onsubmit="return false">
+    <p>Enter a word - <input id="spellcheckinput" onkeyup="getjs (this.value);" type="text"> <span id="spellcheckresult">Checking ...</span></p>
+</form>
+
+
+
+</body>
+</html>
